@@ -4,8 +4,8 @@ import {
   createStorageId,
   type CreateStorageIdParameters,
   type Storage,
-} from "../storage.js";
-import type { StorageLog } from "../storage-log.js";
+} from "../storage/storage.js";
+import type { StorageLog } from "../storage/storage-log.js";
 
 export type GetInitialStorageLogParameters = CreateStorageIdParameters & {
   storage: Storage;

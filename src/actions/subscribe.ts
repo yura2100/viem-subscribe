@@ -13,9 +13,9 @@ import {
   createStorageId,
   type Storage,
   type StorageStrategy,
-} from "../storage.js";
+} from "../storage/storage.js";
 import { getInitialStorageLog } from "./getInitialStorageLog.js";
-import { compareStorageLog } from "../storage-log.js";
+import { compareStorageLog } from "../storage/storage-log.js";
 import { wait } from "../utils/wait.js";
 
 export type PollingStrategy = "before" | "after";
