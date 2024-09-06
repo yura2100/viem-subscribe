@@ -15,7 +15,10 @@ import {
   type StorageStrategy,
 } from "../storage/storage.js";
 import { getInitialStorageLog } from "./getInitialStorageLog.js";
-import { compareStorageLog } from "../storage/storage-log.js";
+import {
+  compareStorageLog,
+  extractStorageLog,
+} from "../storage/storage-log.js";
 import { wait } from "../utils/wait.js";
 
 export type PollingStrategy = "before" | "after";
@@ -138,11 +141,7 @@ export async function* subscribe<
       .filter((log) => compareStorageLog(lastLog, log) > 0)
       .sort(compareStorageLog);
     for (const log of sortedLogs) {
-      const storageLog = {
-        blockNumber: log.blockNumber,
-        transactionIndex: log.transactionIndex,
-        logIndex: log.logIndex,
-      };
+      const storageLog = extractStorageLog(log);
 
       if (storageStrategy === "before") {
         await storage(storageId).upsertLog(storageLog);

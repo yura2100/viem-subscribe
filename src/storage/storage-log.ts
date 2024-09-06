@@ -1,16 +1,22 @@
-export type StorageLog = {
-  blockNumber: bigint;
-  transactionIndex: number;
-  logIndex: number;
-};
+import type { Log } from "viem";
 
-export function compareStorageLog<storageLog extends StorageLog>(
-  a: storageLog,
-  b: storageLog,
-): number {
+export type StorageLog = Pick<
+  Log<bigint, number, false>,
+  "blockNumber" | "transactionIndex" | "logIndex"
+>;
+
+export function compareStorageLog(a: StorageLog, b: StorageLog): number {
   return (
     Number(a.blockNumber - b.blockNumber) ||
     a.transactionIndex - b.transactionIndex ||
     a.logIndex - b.logIndex
   );
+}
+
+export function extractStorageLog(log: Log<bigint, number, false>): StorageLog {
+  return {
+    blockNumber: log.blockNumber,
+    transactionIndex: log.transactionIndex,
+    logIndex: log.logIndex,
+  };
 }
